@@ -3,6 +3,7 @@ import {View, Text, FlatList, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 const StoreScreen = navigation => {
   const [data, setData] = React.useState({});
+  const [user, setUser] = React.useState('User');
   const getData = () => {
     const url =
       'https://www.googleapis.com/books/v1/volumes?q=harry+potter&maxResults=20';
@@ -15,8 +16,14 @@ const StoreScreen = navigation => {
         console.log('get data error:' + error);
       });
   };
+  const detectUser = async() => {
+    const token = await AsyncStorage.getItem('username');
+    console.log(token);
+    setUser(token);
+  }
   React.useEffect(()=>{
       getData();
+      detectUser;
   }, []);
   const _renderItem = ({item,index}) => {
     return(
@@ -30,9 +37,17 @@ const StoreScreen = navigation => {
         </View>
     )
   }
+  const header = () => {
+    return (
+      <View>
+        <Text>Hello, {user}</Text>
+      </View>
+    )
+  }
   return (
     <View style={{alignItems: 'center', justifyContent: 'center'}}>
       <FlatList
+        ListHeaderComponent={header}
         data={data}
         renderItem={_renderItem}
       />

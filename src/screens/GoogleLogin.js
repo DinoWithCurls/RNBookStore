@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -15,13 +16,17 @@ const GoogleLogin = ({navigation}) => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      setUsername(userInfo);
-      console.log(userInfo.user.name)
+      setUsername(userInfo.user.name);
+      await AsyncStorage.setItem('username', username);
+      navigation.navigate('InteriorTab')
+      console.log(username)
       console.log('lmao again');
+
     } catch (error) {
       console.log(error.message);
     }
   };
+  
   return (
     <View style={{padding:20, alignItems:'center', flex:1, marginTop:150}}>
       <Text style={styles.welcomeText}>WELCOME</Text>
@@ -38,7 +43,6 @@ const GoogleLogin = ({navigation}) => {
           style={{flex: 1, height: '100%', width: '100%'}}
         />
       </View>
-      <Text style={{marginBottom:20}}>{username && username.user && username.user.name}</Text>
     </View>
   );
 };
