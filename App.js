@@ -29,7 +29,7 @@ const App = () => {
     )
   }
   return (
-    /*(isLoggedIn===true) ? <GoogleLogin /> : */<InteriorTabNavigator />
+    (isLoggedIn===true) ? <GoogleLogin /> : <InteriorTabNavigator />
   )
 }
 

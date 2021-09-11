@@ -33,7 +33,7 @@ const StoreScreen = navigation => {
                 <Text style={styles.title}>{item.volumeInfo.title}</Text>
                 <Text style={styles.subHeader}>{item.volumeInfo.pageCount}</Text>
             </View>
-            <Icon name="plus" size={30} style={styles.plusIcon} />
+            <Icon name="plus" size={30} style={styles.plusIcon} onPress={()=>console.log("hello")}/>
         </View>
     )
   }
@@ -41,6 +41,7 @@ const StoreScreen = navigation => {
     return (
       <View>
         <Text>Hello, {user}</Text>
+        <Text>LIST</Text>
       </View>
     )
   }
@@ -60,22 +61,24 @@ export default StoreScreen;
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
+        alignItems: 'center',
+        padding:2
     },
     image: {
         width:80,
         height:120,
         marginLeft:10,
-        marginVertical:10
+        marginVertical:10,
     },
     titleBlock:{
         flexDirection:'column',
         alignItems: 'center',
         marginLeft:10,
-        marginTop:40,
+        marginTop:20,
     },
     plusIcon:{
-        marginRight:90,
-        marginTop:50
+        marginTop:20,
+        marginLeft:20
     },
     title:{
         fontSize:15,
