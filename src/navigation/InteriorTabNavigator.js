@@ -7,21 +7,21 @@ import CartScreen from '../screens/CartScreen';
 const Tab = createMaterialBottomTabNavigator();
 export default function InteriorTabNavigator({navigation, route}) {
   return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName="Store" activeColor="orange" barStyle={{backgroundColor:'white'}}>
+    
+      <Tab.Navigator initialRouteName="Store" labeled={false} activeColor="orange" barStyle={{backgroundColor:'white'}}>
         <Tab.Screen
           name="Store"
           component={StoreScreen}
           options={{
             tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="home" color={color} size={size} />)}} />
+              <MaterialCommunityIcons name="home" color={color} size={27} />)}} />
         <Tab.Screen
           name="Cart"
           component={CartScreen}
           options={{
             tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="cart-plus" color={color} size={size} />)}} />
+              <MaterialCommunityIcons name="cart-plus" color={color} size={25} />)}} />
       </Tab.Navigator>
-    </NavigationContainer>
+    
   );
 }
