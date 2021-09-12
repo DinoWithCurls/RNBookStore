@@ -1,7 +1,14 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-const StoreScreen = navigation => {
+const StoreScreen = ({navigation}) => {
   const [data, setData] = React.useState({});
   const [user, setUser] = React.useState('User');
   const getData = () => {
@@ -27,17 +34,29 @@ const StoreScreen = navigation => {
   }, []);
   const _renderItem = ({item, index}) => {
     return (
-      <View style={styles.container}>
-        <View style={styles.icnblock}>
-          <Image source={{uri: item.volumeInfo.imageLinks.smallThumbnail}} style={styles.image} />
-        </View>
-        <View style={styles.titleBlock}>
-          <Text style={styles.title}>{item.volumeInfo.title}</Text>
-          <Text style={styles.subHeader}>Rs {item.volumeInfo.pageCount}</Text>
-        </View>
-        <View style={styles.plusBlock}>
-          <Icon name="plus" size={30} style={styles.plusIcon} onPress={() => console.log('hello')} />
-        </View>
+      <View>
+        <TouchableOpacity
+          style={styles.container}
+          onPress={() => navigation.navigate('Details', { book: item})}>
+          <View style={styles.icnblock}>
+            <Image
+              source={{uri: item.volumeInfo.imageLinks.smallThumbnail}}
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.titleBlock}>
+            <Text style={styles.title}>{item.volumeInfo.title}</Text>
+            <Text style={styles.subHeader}>Rs {item.volumeInfo.pageCount}</Text>
+          </View>
+          <View style={styles.plusBlock}>
+            <Icon
+              name="plus"
+              size={30}
+              style={styles.plusIcon}
+              onPress={() => console.log('hello')}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -66,9 +85,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    paddingVertical:20,
-    flex:1,
-    width:450
+    paddingVertical: 20,
+    flex: 1,
+    width: 450,
   },
   image: {
     width: 80,
@@ -77,10 +96,10 @@ const styles = StyleSheet.create({
   },
   titleBlock: {
     flexDirection: 'column',
-    flex:5
+    flex: 5,
   },
   plusIcon: {
-    marginTop:30,
+    marginTop: 30,
   },
   title: {
     fontSize: 15,
@@ -88,15 +107,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 20,
     flexShrink: 1,
-    marginRight:20,
-    marginLeft:-10
+    marginRight: 20,
+    marginLeft: -5,
   },
   subHeader: {
     fontFamily: 'Montserrat',
     fontSize: 14,
     fontWeight: '200',
     marginVertical: 2,
-    marginLeft:-10
+    marginLeft: -5,
   },
   headerblock: {
     height: 90,
@@ -116,9 +135,9 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   icnblock: {
-    flex:2
+    flex: 2,
   },
-  plusBlock:{
-    flex:1
+  plusBlock: {
+    flex: 1.5,
   }
 });

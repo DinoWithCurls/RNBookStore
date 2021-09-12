@@ -4,14 +4,14 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import StoreScreen from '../screens/StoreScreen';
 import CartScreen from '../screens/CartScreen';
+import StoreStackNavigator from './StoreStackNavigator';
 const Tab = createMaterialBottomTabNavigator();
-export default function InteriorTabNavigator({navigation, route}) {
+export default function InteriorTabNavigator({navigation}) {
   return (
-    
-      <Tab.Navigator initialRouteName="Store" labeled={false} activeColor="orange" barStyle={{backgroundColor:'white'}}>
+      <Tab.Navigator initialRouteName="StoreStack" labeled={false} activeColor="orange" barStyle={{backgroundColor:'white'}}>
         <Tab.Screen
-          name="Store"
-          component={StoreScreen}
+          name="StoreStack"
+          component={StoreStackNavigator}
           options={{
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcons name="home" color={color} size={27} />)}} />
