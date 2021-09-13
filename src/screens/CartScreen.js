@@ -11,7 +11,6 @@ const CartScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const deleteItem = item => {
-    console.log('delete item dispatch', item.id);
       dispatch(deleteFromCart(item));
   };
 
@@ -45,7 +44,6 @@ const CartScreen = ({navigation}) => {
         <Text style={[styles.headerSubTitle, {marginTop: 60}]}>
           Shopping Cart
         </Text>
-        <Text>{data.length}</Text>
         <Text
           style={[
             styles.amtBlock,

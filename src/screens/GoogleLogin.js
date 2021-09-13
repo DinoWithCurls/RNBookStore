@@ -1,30 +1,27 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {View, Text, StyleSheet} from 'react-native'
 import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 import WEBCLIENT_ID from '../../keys';
 import { useDispatch, useSelector} from 'react-redux';
-import {setFirstTimeLoginDone, createList} from '../redux/actions';
+import {setFirstTimeLoginDone, createList, setUsername} from '../redux/actions';
 
 GoogleSignin.configure({
   webClientId: WEBCLIENT_ID,
   offlineAccess: false,
 });
 const GoogleLogin = ({navigation}) => {
-  const [username, setUsername] = React.useState('');
   const dispatch = useDispatch();
   const isFirstTimeLogin = useSelector(state => state.loginReducer.isFirstTimeLogin);
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      setUsername(userInfo.user.name);
-      await AsyncStorage.setItem('username', username);
+      dispatch(setUsername(userInfo.user.name));
       navigation.navigate('InteriorTab')
-      console.log(username, 'signed in succesfully');
+      console.log(userInfo.user.name,'signed in succesfully');
       dispatch(setFirstTimeLoginDone());
 
     } catch (error) {

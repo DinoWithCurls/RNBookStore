@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-
+import {StyleSheet, Dimensions} from 'react-native';
+const width = Dimensions.get('screen').width;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     marginVertical: 2,
     marginLeft: -5,
-    color:'grey'
+    color:'grey',
+    width: width
   },
 });
 export default styles

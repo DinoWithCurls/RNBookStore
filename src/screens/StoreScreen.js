@@ -1,28 +1,32 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import styles from '../styles/StoreandCart.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector, useDispatch} from 'react-redux';
-import { addToCart } from '../redux/actions';
+import {addToCart, deleteFromCart} from '../redux/actions';
 
 const StoreScreen = ({navigation}) => {
-  const data = useSelector(state => state.listReducer.list); 
-  const [user, setUser] = React.useState('User');
-  
-  
+  const data = useSelector(state => state.listReducer.list);
   const dispatch = useDispatch();
+  const cart = useSelector(state => state.cartReducer.cart);
+  const username = useSelector(state => state.loginReducer.username);
+
+  const isInCart = item => {
+    return cart.find(book => book.id === item.id);
+  };
+  const onPressPlus = item => {
+    if (isInCart(item)) {
+      dispatch(deleteFromCart(item));
+    } else {
+      dispatch(addToCart(item));
+    }
+  };
   const _renderItem = ({item, index}) => {
     return (
       <View>
         <TouchableOpacity
           style={styles.container}
-          onPress={() => navigation.navigate('Details', { book: item})}>
+          onPress={() => navigation.navigate('Details', {book: item})}>
           <View style={styles.icnblock}>
             <Image
               source={{uri: item.volumeInfo.imageLinks.smallThumbnail}}
@@ -37,19 +41,23 @@ const StoreScreen = ({navigation}) => {
             <Icon
               name="plus"
               size={30}
-              style={styles.plusIcon}
-              onPress={() => console.log('plus sign ', item.id)}
+              style={[
+                styles.plusIcon,
+                {
+                  color: isInCart(item) ? 'orange' : 'black',
+                },
+              ]}
+              onPress={() => onPressPlus(item)}
             />
           </View>
         </TouchableOpacity>
-        
       </View>
     );
   };
   const header = () => {
     return (
       <View style={styles.headerblock}>
-        <Text style={styles.headertitle}>Hello, {user}!</Text>
+        <Text style={styles.headertitle}>Hello, {username}!</Text>
         <Text style={styles.headerSubTitle}>LIST</Text>
       </View>
     );
@@ -66,4 +74,3 @@ const StoreScreen = ({navigation}) => {
 };
 
 export default StoreScreen;
-
