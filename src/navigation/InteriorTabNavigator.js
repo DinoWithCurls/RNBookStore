@@ -1,10 +1,9 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import StoreScreen from '../screens/StoreScreen';
 import CartScreen from '../screens/CartScreen';
 import StoreStackNavigator from './StoreStackNavigator';
+import CartTabIcon from '../components/CartTabIcon';
 const Tab = createMaterialBottomTabNavigator();
 export default function InteriorTabNavigator({navigation}) {
   return (
@@ -13,14 +12,14 @@ export default function InteriorTabNavigator({navigation}) {
           name="StoreStack"
           component={StoreStackNavigator}
           options={{
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({color}) => (
               <MaterialCommunityIcons name="home" color={color} size={27} />)}} />
         <Tab.Screen
           name="Cart"
           component={CartScreen}
           options={{
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="cart-plus" color={color} size={25} />)}} />
+            tabBarIcon: ({color}) => (
+              <CartTabIcon tintColor={color} />)}} />
       </Tab.Navigator>
     
   );

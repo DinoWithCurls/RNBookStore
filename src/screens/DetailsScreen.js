@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { addToCart, deleteFromCart} from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 const DetailsScreen = ({navigation, route}) => {
-  const [data, setData] = React.useState({});
-  const setBookDetails = () => {
-    setData(route.params.book);
-  };
-  React.useEffect(() => {
-    setBookDetails();
-  }, []);
+
+  const dispatch = useDispatch();
+  const cart =  useSelector(state => state.cartReducer.cart);
+  
   return (
     <View
       style={{
@@ -33,9 +32,13 @@ const DetailsScreen = ({navigation, route}) => {
       <Text style={styles.bookDesc}>
         {route.params.book.volumeInfo.description}
       </Text>
-      <TouchableOpacity style={styles.box}>
+      
+      { !cart.find(item => item.id === route.params.book.id) ? <TouchableOpacity style={styles.box} onPress={()=> dispatch(addToCart(route.params.book))}>
         <Text style={styles.txtStyle}>Add To Cart</Text>
-      </TouchableOpacity>
+    </TouchableOpacity> : <TouchableOpacity style={styles.box} onPress={()=> dispatch(deleteFromCart(route.params.book))}>
+        <Text style={styles.txtStyle}>Remove From Cart</Text>
+    </TouchableOpacity>}
+      
     </View>
   );
 };
