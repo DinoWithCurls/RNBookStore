@@ -1,44 +1,67 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { addToCart, deleteFromCart} from '../redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import {addToCart, deleteFromCart} from '../redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
 const DetailsScreen = ({navigation, route}) => {
-
   const dispatch = useDispatch();
-  const cart =  useSelector(state => state.cartReducer.cart);
-  
+  const cart = useSelector(state => state.cartReducer.cart);
+
   return (
     <View
       style={{
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20,
+        padding: 20
       }}>
-      <View style={{marginLeft: -340, marginTop: 20}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Store')}>
-          <Icon name="left" size={30} />
+      <View style={{marginLeft: -340, marginTop: 20, opacity:0.5}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Store')}>
+          <Icon name="left" color={"black"} size={30} />
         </TouchableOpacity>
       </View>
-      <Image
-        source={{uri: route.params.book.volumeInfo.imageLinks.thumbnail}}
-        style={{width: 200, height: 300, marginVertical: 10}}
-      />
-      <Text style={styles.bookName}>{route.params.book.volumeInfo.title}</Text>
-      <Text style={styles.bookPrice}>
-        Rs {route.params.book.volumeInfo.pageCount}
-      </Text>
-      <Text style={styles.bookDesc}>
-        {route.params.book.volumeInfo.description}
-      </Text>
-      
-      { !cart.find(item => item.id === route.params.book.id) ? <TouchableOpacity style={styles.box} onPress={()=> dispatch(addToCart(route.params.book))}>
-        <Text style={styles.txtStyle}>Add To Cart</Text>
-    </TouchableOpacity> : <TouchableOpacity style={styles.box} onPress={()=> dispatch(deleteFromCart(route.params.book))}>
-        <Text style={styles.txtStyle}>Remove From Cart</Text>
-    </TouchableOpacity>}
-      
+      <ScrollView contentContainerStyle={{flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,}}>
+        <Image
+          source={{uri: route.params.book.volumeInfo.imageLinks.thumbnail}}
+          style={{width: 200, height: 300, marginVertical: 10}}
+        />
+        <Text style={styles.bookName}>
+          {route.params.book.volumeInfo.title}
+        </Text>
+        <Text style={styles.bookPrice}>
+          Rs{' '}
+          {route.params.book.volumeInfo.pageCount
+            ? route.params.book.volumeInfo.pageCount
+            : 0}
+        </Text>
+        <Text style={styles.bookDesc}>
+          {route.params.book.volumeInfo.description}
+        </Text>
+
+        {!cart.find(item => item.id === route.params.book.id) ? (
+          <TouchableOpacity
+            style={styles.box}
+            onPress={() => dispatch(addToCart(route.params.book))}>
+            <Text style={styles.txtStyle}>Add To Cart</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.box}
+            onPress={() => dispatch(deleteFromCart(route.params.book))}>
+            <Text style={styles.txtStyle}>Remove From Cart</Text>
+          </TouchableOpacity>
+        )}
+      </ScrollView>
     </View>
   );
 };

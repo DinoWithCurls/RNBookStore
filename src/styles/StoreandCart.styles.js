@@ -74,5 +74,25 @@ const styles = StyleSheet.create({
     color:'grey',
     width: width
   },
+  box: {
+    width: 326,
+    height: 50,
+    borderRadius: 5,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: 'black',
+    marginTop: 50,
+  },
+  txtStyle: {
+    fontFamily: 'Lato',
+    fontWeight: '700',
+    fontStyle: 'normal',
+    fontSize: 16,
+    lineHeight: 18,
+    letterSpacing: 2.95,
+    color: 'white',
+  },
 });
 export default styles

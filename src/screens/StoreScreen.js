@@ -35,7 +35,7 @@ const StoreScreen = ({navigation}) => {
           </View>
           <View style={styles.titleBlock}>
             <Text style={styles.title}>{item.volumeInfo.title}</Text>
-            <Text style={styles.subHeader}>Rs {item.volumeInfo.pageCount}</Text>
+            <Text style={styles.subHeader}>Rs {(item.volumeInfo.pageCount) ? item.volumeInfo.pageCount : 0}</Text>
           </View>
           <View style={styles.plusBlock}>
             <Icon
