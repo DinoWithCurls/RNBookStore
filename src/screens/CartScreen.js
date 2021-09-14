@@ -5,7 +5,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 import styles from '../styles/StoreandCart.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -48,15 +48,15 @@ const CartScreen = ({navigation}) => {
     };
 
     console.log('Making POST ', POST_CART_DATA_URL, options),
-    fetch(POST_CART_DATA_URL, options)
-      .then(res => res.json())
-      .then(res =>{ 
-        console.log('POST https://api.tago.care/assignment/', res)
-        Alert.alert("Your order has been placed")
-      })
-      .catch(error =>
-        console.log('Error POST https://api.tago.care/assignment/', error),
-      );
+      fetch(POST_CART_DATA_URL, options)
+        .then(res => res.json())
+        .then(res => {
+          console.log('POST https://api.tago.care/assignment/', res);
+          Alert.alert('Your order has been placed');
+        })
+        .catch(error =>
+          console.log('Error POST https://api.tago.care/assignment/', error),
+        );
   };
   const _renderItem = ({item}) => {
     return (
@@ -117,21 +117,27 @@ const CartScreen = ({navigation}) => {
           <Text>No. of books: {data.length}</Text>
           <Text>Total Price: Rs. {totalPrice}</Text>
         </View>
-        <TouchableOpacity style={styles.box} onPress={()=>{sendDataToAPI()}}>
+        <TouchableOpacity
+          style={styles.box}
+          onPress={() => {
+            sendDataToAPI();
+          }}>
           <Text style={styles.txtStyle}>Buy now</Text>
         </TouchableOpacity>
       </View>
     );
   };
   return (
-    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-      <FlatList
-        ListHeaderComponent={header}
-        data={Object.values(data)}
-        renderItem={_renderItem}
-        stickyHeaderIndices={[0]}
-      />
-      <View style={{zIndex: 2000}}>
+    <View>
+      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <FlatList
+          ListHeaderComponent={header}
+          data={Object.values(data)}
+          renderItem={_renderItem}
+          stickyHeaderIndices={[0]}
+        />
+      </View>
+      <View style={{zIndex: 2000, marginTop:611, marginLeft:10, position:'absolute'}}>
         <BuyModal />
       </View>
     </View>

@@ -45,7 +45,7 @@ const DetailsScreen = ({navigation, route}) => {
             : 0}
         </Text>
         <Text style={styles.bookDesc}>
-          {route.params.book.volumeInfo.description}
+          {(route.params.book.volumeInfo.description) ? route.params.book.volumeInfo.description : 'No description found'}
         </Text>
 
         {!cart.find(item => item.id === route.params.book.id) ? (
