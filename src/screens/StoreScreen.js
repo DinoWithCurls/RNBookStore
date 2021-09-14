@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector, useDispatch} from 'react-redux';
 import {addToCart, deleteFromCart} from '../redux/actions';
 
+const fallbackImage=require('../assets/book.png');
 const StoreScreen = ({navigation}) => {
   const data = useSelector(state => state.listReducer.list);
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const StoreScreen = ({navigation}) => {
     }
   };
   const _renderItem = ({item, index}) => {
+    const imageUrl=item?.volumeInfo?.imageLinks?.smallThumbnail;
     return (
       <View>
         <TouchableOpacity
@@ -29,7 +31,7 @@ const StoreScreen = ({navigation}) => {
           onPress={() => navigation.navigate('Details', {book: item})}>
           <View style={styles.icnblock}>
             <Image
-              source={{uri: item.volumeInfo.imageLinks.smallThumbnail}}
+              source={ imageUrl ? {uri:imageUrl}  : fallbackImage}
               style={styles.image}
             />
           </View>

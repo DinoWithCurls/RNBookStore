@@ -10,29 +10,35 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import {addToCart, deleteFromCart} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
+const fallbackImage=require('../assets/book.png');
 const DetailsScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cartReducer.cart);
-
+  const imageUrl = route?.params?.book?.volumeInfo?.imageLinks?.thumbnail;
   return (
     <View
       style={{
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20
+        padding: 20,
       }}>
-      <View style={{marginLeft: -340, marginTop: 20, opacity:0.5}}>
+      <View style={{marginLeft: -340, marginTop: 20, opacity: 0.5}}>
         <TouchableOpacity onPress={() => navigation.navigate('Store')}>
-          <Icon name="left" color={"black"} size={30} />
+          <Icon name="left" color={'black'} size={30} />
         </TouchableOpacity>
       </View>
-      <ScrollView contentContainerStyle={{flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,}}>
+      <ScrollView
+        contentContainerStyle={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 20,
+        }}>
         <Image
-          source={{uri: route.params.book.volumeInfo.imageLinks.thumbnail}}
+          source={
+            imageUrl ? {uri:imageUrl} : fallbackImage
+          }
           style={{width: 200, height: 300, marginVertical: 10}}
         />
         <Text style={styles.bookName}>
@@ -45,7 +51,9 @@ const DetailsScreen = ({navigation, route}) => {
             : 0}
         </Text>
         <Text style={styles.bookDesc}>
-          {(route.params.book.volumeInfo.description) ? route.params.book.volumeInfo.description : 'No description found'}
+          {route.params.book.volumeInfo.description
+            ? route.params.book.volumeInfo.description
+            : 'No description found'}
         </Text>
 
         {!cart.find(item => item.id === route.params.book.id) ? (

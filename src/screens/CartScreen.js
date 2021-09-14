@@ -11,8 +11,7 @@ import styles from '../styles/StoreandCart.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useSelector, useDispatch} from 'react-redux';
 import {deleteFromCart} from '../redux/actions';
-import axios from 'axios';
-
+const fallbackImage = require('../assets/book.png');
 const POST_CART_DATA_URL = 'https://api.tago.care/assignment/';
 const CartScreen = ({navigation}) => {
   const data = useSelector(state => state.cartReducer.cart);
@@ -30,7 +29,6 @@ const CartScreen = ({navigation}) => {
       title: elem?.volumeInfo?.title ? elem.volumeInfo.title : 'Not Found',
     };
   });
-
   var body = {
     name: 'aditya',
     total: totalPrice,
@@ -46,24 +44,30 @@ const CartScreen = ({navigation}) => {
       },
       body: JSON.stringify(body),
     };
-
-    console.log('Making POST ', POST_CART_DATA_URL, options),
+    if(bookDetails && bookDetails.length> 0) {
+      console.log('Making POST ', POST_CART_DATA_URL, options),
       fetch(POST_CART_DATA_URL, options)
         .then(res => res.json())
         .then(res => {
           console.log('POST https://api.tago.care/assignment/', res);
+          //TODO: Empty the cart after making a successful call.
           Alert.alert('Your order has been placed');
         })
         .catch(error =>
           console.log('Error POST https://api.tago.care/assignment/', error),
+          //Alert.alert('Your order could not be placed, please try again')
         );
+    } else {
+      Alert.alert("Nothing in cart");
+    }
   };
   const _renderItem = ({item}) => {
+    const imageUrl = item?.volumeInfo?.imageLinks?.smallThumbnail;
     return (
       <View style={styles.container}>
         <View style={styles.icnblock}>
           <Image
-            source={{uri: item.volumeInfo.imageLinks.smallThumbnail}}
+            source={imageUrl ? {uri: imageUrl} : fallbackImage}
             style={styles.image}
           />
         </View>
@@ -108,7 +112,6 @@ const CartScreen = ({navigation}) => {
           backgroundColor: 'grey',
           height: 180,
           bottom: -40,
-          zIndex: 2000,
           flexDirection: 'column',
           alignItems: 'center',
           borderRadius: 10,
@@ -137,7 +140,13 @@ const CartScreen = ({navigation}) => {
           stickyHeaderIndices={[0]}
         />
       </View>
-      <View style={{zIndex: 2000, marginTop:611, marginLeft:10, position:'absolute'}}>
+      <View
+        style={{
+          zIndex: 2000,
+          marginTop: 611,
+          marginLeft: 10,
+          position: 'absolute',
+        }}>
         <BuyModal />
       </View>
     </View>
