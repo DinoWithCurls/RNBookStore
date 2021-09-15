@@ -7,6 +7,7 @@ import {addToCart, deleteFromCart} from '../redux/actions';
 
 const fallbackImage=require('../assets/book.png');
 const StoreScreen = ({navigation}) => {
+  //Get the itemsList, cart state and username from Redux store
   const data = useSelector(state => state.listReducer.list);
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cartReducer.cart);

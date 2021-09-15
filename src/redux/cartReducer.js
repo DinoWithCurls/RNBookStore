@@ -1,5 +1,5 @@
 import {ADD_TO_CART, DELETE_FROM_CART} from './actionTypes';
-
+//create reducers for cart, and declaring functions that can be called via these reducers.
 const cartReducer = (state = { cart : []}, action) => {
     switch(action.type){
         case DELETE_FROM_CART:
@@ -10,7 +10,6 @@ const cartReducer = (state = { cart : []}, action) => {
             return state;
     }
 }
-
 const addToCart = ( state, action)=>{
     console.log('add to cart called', action.payload.id);
     

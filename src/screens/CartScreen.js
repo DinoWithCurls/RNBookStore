@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  Dimensions,
 } from 'react-native';
 import styles from '../styles/StoreandCart.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -13,8 +14,12 @@ import {useSelector, useDispatch} from 'react-redux';
 import {deleteFromCart} from '../redux/actions';
 const fallbackImage = require('../assets/book.png');
 const POST_CART_DATA_URL = 'https://api.tago.care/assignment/';
+const height = Dimensions.get('screen').height;
+console.log(height);
 const CartScreen = ({navigation}) => {
+  //Require the cart from redux store using reducers
   const data = useSelector(state => state.cartReducer.cart);
+  //Create a dispatch call instance
   const dispatch = useDispatch();
   const deleteItem = item => {
     dispatch(deleteFromCart(item));
@@ -44,21 +49,26 @@ const CartScreen = ({navigation}) => {
       },
       body: JSON.stringify(body),
     };
-    if(bookDetails && bookDetails.length> 0) {
+    if (bookDetails && bookDetails.length > 0) {
+      //Making a POST call to the API
       console.log('Making POST ', POST_CART_DATA_URL, options),
-      fetch(POST_CART_DATA_URL, options)
-        .then(res => res.json())
-        .then(res => {
-          console.log('POST https://api.tago.care/assignment/', res);
-          //TODO: Empty the cart after making a successful call.
-          Alert.alert('Your order has been placed');
-        })
-        .catch(error =>
-          console.log('Error POST https://api.tago.care/assignment/', error),
-          //Alert.alert('Your order could not be placed, please try again')
-        );
+        fetch(POST_CART_DATA_URL, options)
+          .then(res => res.json())
+          .then(res => {
+            console.log('POST https://api.tago.care/assignment/', res);
+            //TODO: Empty the cart after making a successful call.
+            Alert.alert('Your order has been placed');
+          })
+          .catch(
+            error =>
+              console.log(
+                'Error POST https://api.tago.care/assignment/',
+                error,
+              ),
+            //Alert.alert('Your order could not be placed, please try again')
+          );
     } else {
-      Alert.alert("Nothing in cart");
+      Alert.alert('Nothing in cart');
     }
   };
   const _renderItem = ({item}) => {
@@ -111,7 +121,7 @@ const CartScreen = ({navigation}) => {
           width: 400,
           backgroundColor: 'grey',
           height: 180,
-          bottom: -40,
+          top: height - 880,
           flexDirection: 'column',
           alignItems: 'center',
           borderRadius: 10,

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
 const CartTabIcon = props => {
   const cart = useSelector(state => state.cartReducer.cart);
-
+  //Get the cart state from redux store, to display whether there are items in the cart or not.
   return (
     <View>
       {(cart.length && cart.length > 0) ? (

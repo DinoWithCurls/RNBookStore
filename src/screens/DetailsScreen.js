@@ -12,7 +12,9 @@ import {addToCart, deleteFromCart} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 const fallbackImage=require('../assets/book.png');
 const DetailsScreen = ({navigation, route}) => {
+  //Create a dispatch call instance, for adding/removing from cart.
   const dispatch = useDispatch();
+  //Require the cart for checking whether the current item is in the cart or not.
   const cart = useSelector(state => state.cartReducer.cart);
   const imageUrl = route?.params?.book?.volumeInfo?.imageLinks?.thumbnail;
   return (

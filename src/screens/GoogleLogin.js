@@ -14,6 +14,7 @@ GoogleSignin.configure({
 });
 const GoogleLogin = ({navigation}) => {
   const dispatch = useDispatch();
+  //Check whether the user is logging in for the first time or not. 
   const isFirstTimeLogin = useSelector(state => state.loginReducer.isFirstTimeLogin);
   const signIn = async () => {
     try {
@@ -23,12 +24,12 @@ const GoogleLogin = ({navigation}) => {
       navigation.navigate('InteriorTab')
       console.log(userInfo.user.name,'signed in succesfully');
       dispatch(setFirstTimeLoginDone());
-
     } catch (error) {
       console.log(error.message);
     }
   };
-  
+  //Fetch the itemsList data from API, only when the user is logging in for the first time, to prevent rerendering and hence unnecessary data usage.
+  //Here, we fetch the data, store it in the AsyncStorage using redux, then use it in our app, wherever needed.
   const getData = () => {
     const url =
       'https://www.googleapis.com/books/v1/volumes?q=harry+potter&maxResults=20';
@@ -37,7 +38,6 @@ const GoogleLogin = ({navigation}) => {
       .then(res => {
         dispatch(createList(res.items));
         console.log(' res.items ', res.items.length);
-        
       })
       .catch(error => {
         console.log('get data error:', error);

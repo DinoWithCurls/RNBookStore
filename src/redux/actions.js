@@ -1,3 +1,4 @@
+//Create actions
 import {ADD_TO_CART, SET_USERNAME, DELETE_FROM_CART, CREATE_LIST, SET_FIRST_TIME_LOGIN_DONE} from './actionTypes';
 const deleteFromCart = (item) => {
     return {
@@ -30,7 +31,6 @@ const setUsername = (username) => {
         payload: username
     }
 }
-
 
 export  {
     deleteFromCart,
