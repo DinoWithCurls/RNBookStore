@@ -7,7 +7,7 @@ import {
 import WEBCLIENT_ID from '../../keys';
 import { useDispatch, useSelector} from 'react-redux';
 import {setFirstTimeLoginDone, createList, setUsername} from '../redux/actions';
-
+import adjust from '../styles/ScreenSizeAdjust';
 GoogleSignin.configure({
   webClientId: WEBCLIENT_ID,
   offlineAccess: false,
@@ -51,7 +51,7 @@ const GoogleLogin = ({navigation}) => {
     }
   }, [])
   return (
-    <View style={{padding:20, alignItems:'center', flex:1, marginTop:150}}>
+    <View style={{padding:20, alignItems:'center', flex:1, }}>
       <Text style={styles.welcomeText}>WELCOME</Text>
       <View style={{
             width: 400,
@@ -63,7 +63,7 @@ const GoogleLogin = ({navigation}) => {
           onPress={signIn}
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Light}
-          style={{flex: 1, height: '100%', width: '100%'}}
+          style={{flex: 1, height: '100%', width: '90%'}}
         />
       </View>
     </View>
@@ -75,7 +75,7 @@ const styles=StyleSheet.create({
   welcomeText:{
     fontFamily:'Montserrat',
     fontWeight:'600',
-    fontSize:40,
+    fontSize:adjust(40),
     marginBottom:200
   }
 })

@@ -23,7 +23,7 @@ const DetailsScreen = ({navigation, route}) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20,
+        padding: 10,
       }}>
       <View style={{marginLeft: -340, marginTop: 20, opacity: 0.5}}>
         <TouchableOpacity onPress={() => navigation.navigate('Store')}>
@@ -35,7 +35,7 @@ const DetailsScreen = ({navigation, route}) => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 20,
+          padding: 15,
         }}>
         <Image
           source={

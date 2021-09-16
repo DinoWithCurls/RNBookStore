@@ -15,6 +15,7 @@ import {deleteFromCart} from '../redux/actions';
 const fallbackImage = require('../assets/book.png');
 const POST_CART_DATA_URL = 'https://api.tago.care/assignment/';
 const height = Dimensions.get('screen').height;
+const width = Dimensions.get('screen').width;
 console.log(height);
 const CartScreen = ({navigation}) => {
   //Require the cart from redux store using reducers
@@ -101,13 +102,13 @@ const CartScreen = ({navigation}) => {
   const header = () => {
     return (
       <View style={styles.headerblock}>
-        <Text style={[styles.headerSubTitle, {marginTop: 60}]}>
+        <Text style={[styles.headerSubTitle,{marginTop:height-0.96*height} ]}>
           Shopping Cart
         </Text>
         <Text
           style={[
             styles.amtBlock,
-            {color: 'black', marginLeft: 350, marginTop: 1},
+            {color: 'black', marginLeft: width-0.2*width, marginTop: 1},
           ]}>
           Amount
         </Text>
@@ -118,10 +119,10 @@ const CartScreen = ({navigation}) => {
     return (
       <View
         style={{
-          width: 400,
+          width: width-0.05*width,
           backgroundColor: 'grey',
-          height: 180,
-          top: height - 880,
+          height: height-0.8*height,
+          bottom: height - 0.9*height,
           flexDirection: 'column',
           alignItems: 'center',
           borderRadius: 10,

@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -38,7 +39,10 @@ const styles = StyleSheet.create({
     marginLeft: -5,
   },
   headerblock: {
-    height: 120,
+    height: height - 0.85*height,
+    width: width,
+    flex:1,
+    flexWrap:'wrap',
     backgroundColor:'white'
   },
   headertitle: {
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   plusBlock: {
-    flex: 1.5,
+    flex: 1.9,
   },
   deleteIcon:{
     marginTop:2
