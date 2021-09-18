@@ -51,7 +51,7 @@ const GoogleLogin = ({navigation}) => {
     }
   }, [])
   return (
-    <View style={{padding:20, alignItems:'center', flex:1, }}>
+    <View style={{padding:10, alignItems:'center', flex:1, justifyContent:'center' }}>
       <Text style={styles.welcomeText}>WELCOME</Text>
       <View style={{
             width: 400,
@@ -63,7 +63,7 @@ const GoogleLogin = ({navigation}) => {
           onPress={signIn}
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Light}
-          style={{flex: 1, height: '100%', width: '90%'}}
+          style={{flex: 1, height: '100%', width: '90%', justifyContent:'center'}}
         />
       </View>
     </View>
@@ -76,6 +76,6 @@ const styles=StyleSheet.create({
     fontFamily:'Montserrat',
     fontWeight:'600',
     fontSize:adjust(40),
-    marginBottom:200
+    marginBottom:20
   }
 })
