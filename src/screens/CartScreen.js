@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Dimensions,
+  Modal
 } from 'react-native';
 import styles from '../styles/StoreandCart.styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -14,8 +15,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {deleteFromCart} from '../redux/actions';
 const fallbackImage = require('../assets/book.png');
 const POST_CART_DATA_URL = 'https://api.tago.care/assignment/';
-const height = Dimensions.get('screen').height;
-const width = Dimensions.get('screen').width;
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 console.log(height);
 const CartScreen = ({navigation}) => {
   //Require the cart from redux store using reducers
@@ -117,17 +118,8 @@ const CartScreen = ({navigation}) => {
   };
   const BuyModal = () => {
     return (
-      <View
-        style={{
-          width: width-0.05*width,
-          backgroundColor: 'grey',
-          height: height-0.8*height,
-          bottom: height - 0.9*height,
-          flexDirection: 'column',
-          alignItems: 'center',
-          borderRadius: 10,
-        }}>
-        <View style={{marginTop: 20, marginLeft: -200}}>
+      <View style={styles.buyModalStyle}>
+        <View style={{top: '-35%', marginLeft: -200}}>
           <Text>No. of books: {data.length}</Text>
           <Text>Total Price: Rs. {totalPrice}</Text>
         </View>
@@ -141,25 +133,24 @@ const CartScreen = ({navigation}) => {
       </View>
     );
   };
+  const emptyList = () => {
+    return (
+      <View style={{alignItems:'center', justifyContent:'center'}}><Text>Add something to your cart!</Text></View>
+    )
+  }
   return (
     <View>
-      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{alignItems: 'center', justifyContent: 'center', flexDirection:'column'}}>
         <FlatList
           ListHeaderComponent={header}
           data={Object.values(data)}
           renderItem={_renderItem}
           stickyHeaderIndices={[0]}
+          contentContainerStyle={{paddingBottom:height - 0.8 * height}}
+          ListEmptyComponent={emptyList}
         />
       </View>
-      <View
-        style={{
-          zIndex: 2000,
-          marginTop: 611,
-          marginLeft: 10,
-          position: 'absolute',
-        }}>
-        <BuyModal />
-      </View>
+      {data && data.length > 0 ? <BuyModal /> : null}
     </View>
   );
 };
